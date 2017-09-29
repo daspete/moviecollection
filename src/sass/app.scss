@@ -1,0 +1,199 @@
+html {
+    box-sizing: border-box;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: inherit;
+    font-family: Arial;
+}
+
+button {
+    background-color: transparent;
+    color: white;
+    border: 0;
+    cursor: pointer;
+
+}
+
+button.active {
+    background-color: red;
+}
+
+.filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 20vw;
+    color: white;
+    overflow: auto;
+
+    background-color: #353535;
+    padding: 5px;
+
+    > div {
+        margin-top: 10px;
+    }
+
+    label {
+        display: inline-block;
+        width: 50px;
+    }
+
+    input {
+        display: inline-block;
+        width: 130px;
+    }
+
+    button {
+        display: block;
+        padding: 5px;
+        margin-bottom: 2px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .genres {
+        margin-top: 20px;
+    }
+}
+
+.player {
+    position: fixed;
+    top: -100vh;
+    left: 20vw;
+    right: 0;
+    height:  100vh;
+    z-index: 100;
+    background-color: #000;
+
+    &.visible {
+        top: 0vh;
+    }
+
+    video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+    }
+}
+
+.moviethumbs {
+    position: fixed;
+    top: 0;
+    left: 20vw;
+    right: 0;
+    height: 170px;
+    background-color: #090909;
+    overflow: auto;
+
+    &__wrapper {
+        padding: 0 5px;
+    }
+
+    .movie-thumb {
+        border: 0;
+        margin: 5px;
+        box-shadow: 1px 1px 2px rgba(255,255,255,0);
+
+        &.current {
+            transform: scale(1.2);            
+        }
+
+        img {
+            height: 130px;
+            width: auto;
+        }
+    }
+}
+
+.moviedescription {
+    position: fixed;
+    top: 170px;
+    left: 20vw;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background-color: #131313;
+
+    &__inner{
+        padding: 10px;
+        color: white;
+    }
+
+    p {
+        padding-bottom: 20px;
+    }
+
+    h2, h3, h4 {
+        padding-bottom: 20px;
+        margin-bottom: 0;
+
+        span {
+            font-size: 0.8rem;
+        }
+    }
+
+    iframe {
+        border: 0;
+        width: 100%;
+        height: 40vw;
+    }
+
+    button {
+        background-color: #565656;
+        color: white;
+        font-weight: 700;
+        display: inline-block;
+        padding: 5px;
+        margin-top: 3px;
+        margin-bottom: 20px;
+        margin-right: 5px;
+    }
+
+    .movie {
+        margin: 10px 5px; 
+        padding: 5px; 
+        background-color: #dedede; 
+        display: inline-block; 
+        width: calc(20vw - 15px); 
+        vertical-align: top;
+    }
+}
+
+button.btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0,0,0,0);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+a.btn-trailer {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin: 10px 0;
+    background-color: #000;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+
+}
+
+h2 {
+    font-size: 20px;
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 0;
+}
