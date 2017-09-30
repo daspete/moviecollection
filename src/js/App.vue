@@ -73,6 +73,7 @@
                 movies: [],
                 movieID: 0,
                 movieUpdateTimeout: null,
+                genreUpdateTimeout: null,
                 video: null
             }
         },
@@ -96,8 +97,54 @@
         created(){
             this.getGenres();
             this.updateMovies();
+
+            window.addEventListener('keyup', this.inputEventHandler);
         },
         methods: {
+            inputEventHandler(e){
+                switch(e.code){
+                    case 'ArrowLeft':
+                        if(this.movieID > 0){
+                            this.movieID--;
+                            return;
+                        }
+
+                    break;
+                    case 'ArrowRight':
+                        if(this.movieID < this.movies.length - 1) this.movieID++;
+                    break;
+                    case 'Enter':
+                         this.getVideo(this.movies[this.movieID].streamurls[0]);
+                    break;
+                    case 'Escape':
+                        this.video = null;
+                    break;
+
+                    case 'ArrowUp':
+                        var genreIndex = this.genres.indexOf(this.genre);
+                        if(genreIndex == 0){
+                            this.startChangeGenre('');
+                        }
+
+                        if(genreIndex > 0){
+                            this.startChangeGenre(this.genres[genreIndex - 1]);
+                        }
+                    break;
+                    case 'ArrowDown':
+                        var genreIndex = this.genres.indexOf(this.genre);
+                        if(genreIndex < this.genres.length - 1){
+                            this.startChangeGenre(this.genres[genreIndex + 1]);
+                        }
+                    break;
+                    case 'KeyA':
+
+                    break;
+                    case 'KeyD':
+
+                    break;
+                }
+            },
+
             startMovieUpdateTimeout(){
                 if(this.movieUpdateTimeout !== null){
                     clearTimeout(this.movieUpdateTimeout);
@@ -112,6 +159,17 @@
                 axios.get(`${this.config.urls.api}genres`).then((res) => {
                     this.genres = res.data;
                 });
+            },
+
+            startChangeGenre(genre){
+                this.genre = genre;
+                if(this.genreUpdateTimeout !== null){
+                    clearTimeout(this.genreUpdateTimeout);
+                }
+
+                this.genreUpdateTimeout = setTimeout(() => {
+                    this.changeGenre(genre);
+                }, 500);
             },
 
             changeGenre(genre){

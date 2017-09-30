@@ -63,7 +63,7 @@ button.active {
 .player {
   position: fixed;
   top: -100vh;
-  left: 20vw;
+  left: 0;
   right: 0;
   height: 100vh;
   z-index: 100;
@@ -87,7 +87,7 @@ button.active {
   top: 0;
   left: 20vw;
   right: 0;
-  height: 170px;
+  height: 175px;
   background-color: #090909;
   overflow: auto;
 }
@@ -116,7 +116,7 @@ button.active {
 
 .moviedescription {
   position: fixed;
-  top: 170px;
+  top: 175px;
   left: 20vw;
   right: 0;
   bottom: 0;

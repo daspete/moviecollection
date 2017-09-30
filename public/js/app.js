@@ -12430,6 +12430,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             movies: [],
             movieID: 0,
             movieUpdateTimeout: null,
+            genreUpdateTimeout: null,
             video: null
         };
     },
@@ -12454,9 +12455,54 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         this.getGenres();
         this.updateMovies();
+
+        window.addEventListener('keyup', this.inputEventHandler);
     },
 
     methods: {
+        inputEventHandler: function inputEventHandler(e) {
+            switch (e.code) {
+                case 'ArrowLeft':
+                    if (this.movieID > 0) {
+                        this.movieID--;
+                        return;
+                    }
+
+                    break;
+                case 'ArrowRight':
+                    if (this.movieID < this.movies.length - 1) this.movieID++;
+                    break;
+                case 'Enter':
+                    this.getVideo(this.movies[this.movieID].streamurls[0]);
+                    break;
+                case 'Escape':
+                    this.video = null;
+                    break;
+
+                case 'ArrowUp':
+                    var genreIndex = this.genres.indexOf(this.genre);
+                    if (genreIndex == 0) {
+                        this.startChangeGenre('');
+                    }
+
+                    if (genreIndex > 0) {
+                        this.startChangeGenre(this.genres[genreIndex - 1]);
+                    }
+                    break;
+                case 'ArrowDown':
+                    var genreIndex = this.genres.indexOf(this.genre);
+                    if (genreIndex < this.genres.length - 1) {
+                        this.startChangeGenre(this.genres[genreIndex + 1]);
+                    }
+                    break;
+                case 'KeyA':
+
+                    break;
+                case 'KeyD':
+
+                    break;
+            }
+        },
         startMovieUpdateTimeout: function startMovieUpdateTimeout() {
             var _this = this;
 
@@ -12475,6 +12521,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this2.genres = res.data;
             });
         },
+        startChangeGenre: function startChangeGenre(genre) {
+            var _this3 = this;
+
+            this.genre = genre;
+            if (this.genreUpdateTimeout !== null) {
+                clearTimeout(this.genreUpdateTimeout);
+            }
+
+            this.genreUpdateTimeout = setTimeout(function () {
+                _this3.changeGenre(genre);
+            }, 500);
+        },
         changeGenre: function changeGenre(genre) {
             this.genre = genre;
             this.updateMovies();
@@ -12483,7 +12541,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.movieID = _movieID;
         },
         updateMovies: function updateMovies() {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get(this.config.urls.api + 'movies', {
                 params: {
@@ -12493,19 +12551,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     page: this.page
                 }
             }).then(function (res) {
-                _this3.movies = res.data.movies;
-                _this3.pages = parseInt(res.data.totalpages);
+                _this4.movies = res.data.movies;
+                _this4.pages = parseInt(res.data.totalpages);
             });
         },
         getVideo: function getVideo(streamurl) {
-            var _this4 = this;
+            var _this5 = this;
 
             axios.get(this.config.urls.api + 'video', {
                 params: {
                     streamurl: streamurl
                 }
             }).then(function (res) {
-                _this4.video = res.data.video;
+                _this5.video = res.data.video;
             });
         },
         closeVideo: function closeVideo() {
