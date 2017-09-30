@@ -36,7 +36,7 @@
         <div class="moviethumbs">
             <div class="moviethumbs__wrapper" :style="`width: ${movies.length * 97}px`">
                 <button v-for="(movie, _movieID) in movies" :class="`movie-thumb${ _movieID == movieID ? ' current' : '' }`" v-on:click="changeMovie(_movieID)">
-                    <img :src="movie.poster">
+                    <img :src="movie.poster.replace('cover_mini','cover')">
                 </button>
             </div>
         </div>

@@ -12743,7 +12743,11 @@ var render = function() {
                 }
               }
             },
-            [_c("img", { attrs: { src: movie.poster } })]
+            [
+              _c("img", {
+                attrs: { src: movie.poster.replace("cover_mini", "cover") }
+              })
+            ]
           )
         })
       )
